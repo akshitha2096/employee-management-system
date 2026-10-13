@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Login | Employee Management System</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="login-wrap">
+    <form class="login-card" id="loginForm" autocomplete="off">
+      <h1>Employee Management System</h1>
+      <p class="sub">Admin sign in</p>
+
+      <div id="loginError" class="alert alert-error"></div>
+
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" type="text" required autofocus />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" required />
+      </div>
+      <button class="btn btn-primary btn-block" id="loginBtn" type="submit">Login</button>
+    </form>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Already logged in? go straight to the dashboard
+    if (Auth.getToken()) window.location.replace("dashboard.html");
+
+    const form = document.getElementById("loginForm");
+    const errBox = document.getElementById("loginError");
+    const btn = document.getElementById("loginBtn");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errBox.classList.remove("show");
+      btn.disabled = true; btn.textContent = "Signing in...";
+      try {
+        await Auth.login(
+          document.getElementById("username").value.trim(),
+          document.getElementById("password").value
+        );
+        window.location.replace("dashboard.html");
+      } catch (err) {
+        errBox.textContent = err.message;
+        errBox.classList.add("show");
+      } finally {
+        btn.disabled = false; btn.textContent = "Login";
+      }
+    });
+  </script>
+</body>
+</html>

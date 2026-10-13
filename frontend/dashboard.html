@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard | Employee Management System</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <h2>Employee Management System</h2>
+    <div class="right">
+      <span>Admin</span>
+      <button class="btn btn-ghost" id="logoutBtn">Logout</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="stats">
+      <div class="stat"><div class="label">Total Employees</div><div class="value" id="statTotal">0</div></div>
+      <div class="stat"><div class="label">Departments</div><div class="value" id="statDepts">0</div></div>
+      <div class="stat"><div class="label">Average Salary</div><div class="value" id="statAvg">0</div></div>
+    </section>
+
+    <div class="toolbar">
+      <input type="search" id="search" placeholder="Search by name, email, department..." />
+      <button class="btn btn-primary" id="addBtn">+ Add Employee</button>
+    </div>
+
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Department</th>
+            <th>Designation</th><th>Salary</th><th>Joined</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div id="empty" class="empty" style="display:none">No employees found.</div>
+    </div>
+  </main>
+
+  <!-- Add / Edit modal -->
+  <div class="overlay" id="formOverlay">
+    <form class="modal" id="empForm" novalidate>
+      <h3 id="modalTitle">Add Employee</h3>
+      <input type="hidden" id="empId" />
+      <div class="grid2">
+        <div class="field"><label>First name</label><input id="firstName" required /><div class="err" data-for="firstName"></div></div>
+        <div class="field"><label>Last name</label><input id="lastName" required /><div class="err" data-for="lastName"></div></div>
+        <div class="field"><label>Email</label><input id="email" type="email" required /><div class="err" data-for="email"></div></div>
+        <div class="field"><label>Phone</label><input id="phone" /><div class="err" data-for="phone"></div></div>
+        <div class="field"><label>Department</label><input id="department" required /><div class="err" data-for="department"></div></div>
+        <div class="field"><label>Designation</label><input id="designation" required /><div class="err" data-for="designation"></div></div>
+        <div class="field"><label>Salary</label><input id="salary" type="number" min="0" step="0.01" required /><div class="err" data-for="salary"></div></div>
+        <div class="field"><label>Date of joining</label><input id="dateOfJoining" type="date" required /><div class="err" data-for="dateOfJoining"></div></div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="cancelBtn">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Delete confirm modal -->
+  <div class="overlay" id="delOverlay">
+    <div class="modal" style="max-width:400px">
+      <h3>Delete employee?</h3>
+      <p id="delText" style="margin-bottom:18px;color:#6b7280"></p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="delCancel">Cancel</button>
+        <button class="btn btn-danger" id="delConfirm">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
